@@ -11,8 +11,8 @@ defmodule RethinkDocs do
       supervisor(RethinkDocs.Endpoint, []),
       # Here you could define other workers and supervisors as children
       # worker(RethinkDocs.Worker, [arg1, arg2, arg3]),
-      worker(RethinkDB.Connection, [[name: RethinkDocs.Database, host: 'localhost', port: 28015]]) 
-    ]
+      worker(RethinkDB.Connection, [[name: RethinkDocs.Database, host: 'localhost', port: 28015]]),
+      worker(RethinkDocs.PostsChangefeed,[RethinkDocs.Database, [name: RethinkDocs.PostsChangefeed]])]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options

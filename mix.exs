@@ -17,7 +17,8 @@ defmodule RethinkDocs.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {RethinkDocs, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext]]
+     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
+     :rethinkdb, :rethinkdb_changefeed]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,7 +33,8 @@ defmodule RethinkDocs.Mixfile do
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
-     {:rethinkdb, "~> 0.0.5"},
+     {:rethinkdb, "~> 0.4.0"},
+     {:rethinkdb_changefeed, "~> 0.0.1"},
      {:poison, ">= 0.0.0", override: true},
      {:cowboy, "~> 1.0"}]
   end

@@ -1,6 +1,6 @@
 defmodule RethinkDocs.PostsController do
   use RethinkDocs.Web, :controller
-  use RethinkDB.Query
+  import RethinkDB.Query
 
   def index(conn, _params) do
     posts = table("posts")
@@ -30,14 +30,23 @@ defmodule RethinkDocs.PostsController do
     text = params["text"]
     id = params["id"]|>String.downcase
 
-    changeset = get_post(id).data |> Map.put(:text, text)
+    post = get_post(id).data
+    changeset = post |> Map.put(:text, text)
 
     updated = table("posts")
     |> get(id)
     |> update(changeset, %{return_changes: true})
     |> RethinkDocs.Database.run
+    changes = updated.data["changes"] |> List.first
 
-    json conn, hd(updated.data["changes"])["new_val"]
+    resp = case changes do
+      nil ->
+        post
+      %{} ->
+        changes["new_val"]
+    end
+
+    json conn, resp
   end
 
   defp get_post(id) do
