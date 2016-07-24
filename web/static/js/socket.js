@@ -56,16 +56,24 @@ socket.connect()
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel("rooms:lobby", {})
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+.receive("ok", resp => { console.log("Joined successfully", resp) })
+.receive("error", resp => { console.log("Unable to join", resp) })
 
 let messagesContainer = $("#messages")
 channel.on("new_posts", payload => {
   console.log(payload);
   messagesContainer.empty()
   payload.value.forEach(function(item) {
-    messagesContainer.append(`<br/> ${item.id} - ${item.text}`)
+    messagesContainer.append(`${item.text}<br/>`)
   });
+})
+
+let $input = $("#message-input")
+$input.off("keypress").on("keypress", e => {
+  if (e.keyCode == 13) {
+    channel.push("new:msg", {body: $input.val()})
+    $input.val("")
+  }
 })
 
 export default socket
