@@ -5,5 +5,6 @@ defmodule RethinkDocs.PageController do
 
   def index(conn, _params) do
     render conn, "index.html"
+    conn|>halt
   end
 end
