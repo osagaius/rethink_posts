@@ -3,77 +3,74 @@
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/my_app/endpoint.ex":
-import {Socket} from "phoenix"
+import {Socket, Presence} from "phoenix"
+let presences = {}
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
-
-// When you connect, you'll often need to authenticate the client.
-// For example, imagine you have an authentication plug, `MyAuth`,
-// which authenticates the session and assigns a `:current_user`.
-// If the current user exists you can assign the user's token in
-// the connection for use in the layout.
-//
-// In your "web/router.ex":
-//
-//     pipeline :browser do
-//       ...
-//       plug MyAuth
-//       plug :put_user_token
-//     end
-//
-//     defp put_user_token(conn, _) do
-//       if current_user = conn.assigns[:current_user] do
-//         token = Phoenix.Token.sign(conn, "user socket", current_user.id)
-//         assign(conn, :user_token, token)
-//       else
-//         conn
-//       end
-//     end
-//
-// Now you need to pass this token to JavaScript. You can do so
-// inside a script tag in "web/templates/layout/app.html.eex":
-//
-//     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
-//
-// You will need to verify the user token in the "connect/2" function
-// in "web/channels/user_socket.ex":
-//
-//     def connect(%{"token" => token}, socket) do
-//       # max_age: 1209600 is equivalent to two weeks in seconds
-//       case Phoenix.Token.verify(socket, "user socket", token, max_age: 1209600) do
-//         {:ok, user_id} ->
-//           {:ok, assign(socket, :user, user_id)}
-//         {:error, reason} ->
-//           :error
-//       end
-//     end
-//
-// Finally, pass the token on connect as below. Or remove it
-// from connect if you don't care about authentication.
-
-socket.connect()
-
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("rooms:lobby", {})
-channel.join()
-.receive("ok", resp => { console.log("Joined successfully", resp) })
-.receive("error", resp => { console.log("Unable to join", resp) })
-
-let messagesContainer = $("#messages")
-channel.on("new_posts", payload => {
-  console.log(payload);
-  messagesContainer.empty()
-  payload.value.forEach(function(item) {
-    messagesContainer.append(`${item.text}<br/>`)
-  });
-})
-
-let $input = $("#message-input")
-$input.off("keypress").on("keypress", e => {
+console.log(Socket);
+console.log(Presence);
+let $username = $("#User")
+$username.off("keypress").on("keypress", e => {
   if (e.keyCode == 13) {
-    channel.push("new:msg", {body: $input.val()})
-    $input.val("")
+    let user = document.getElementById("User").value
+    let socket = new Socket("/socket", {params: {user: user}})
+    socket.connect()
+
+    let channel = socket.channel("rooms:lobby", {})
+    channel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("error", resp => { console.log("Unable to join", resp) })
+
+    // Now that you are connected, you can join channels with a topic:
+    let messagesContainer = $("#messages")
+    channel.on("new_posts", payload => {
+      messagesContainer.empty()
+      payload.value.forEach(function(item) {
+        messagesContainer.append(`${item.text}<br/>`)
+      });
+    })
+
+    channel.on("presence_state", state => {
+      console.log("presence_state", state);
+      Presence.syncState(presences, state)
+      render(presences)
+    })
+
+    channel.on("presence_diff", diff => {
+      console.log("presence_diff", diff);
+      Presence.syncDiff(presences, diff)
+      render(presences)
+    })
+
+    let $input = $("#message-input")
+    $input.off("keypress").on("keypress", e => {
+      if (e.keyCode == 13) {
+        channel.push("new:msg", {body: $input.val()})
+        $input.val("")
+      }
+    })
   }
 })
 
-export default socket
+let formatTimestamp = (timestamp) => {
+  let date = new Date(timestamp)
+  return date.toLocaleTimeString()
+}
+let listBy = (user, {metas: metas}) => {
+  return {
+    user: user,
+    onlineAt: formatTimestamp(metas[0].online_at)
+  }
+}
+
+let userList = document.getElementById("UserList")
+let render = (presences) => {
+  userList.innerHTML = Presence.list(presences, listBy)
+    .map(presence => `
+      <li>
+        ${presence.user}
+        <br>
+        <small>online since ${presence.onlineAt}</small>
+      </li>
+    `)
+    .join("")
+}

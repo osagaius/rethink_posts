@@ -9,6 +9,7 @@ defmodule RethinkDocs do
     children = [
       # Start the endpoint when the application starts
       supervisor(RethinkDocs.Endpoint, []),
+      supervisor(RethinkDocs.Presence, []),
       # Here you could define other workers and supervisors as children
       # worker(RethinkDocs.Worker, [arg1, arg2, arg3]),
       worker(RethinkDB.Connection, [[name: RethinkDocs.Database, host: 'localhost', port: 28015]]),

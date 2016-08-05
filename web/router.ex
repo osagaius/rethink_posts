@@ -18,12 +18,6 @@ defmodule RethinkDocs.Router do
 
     get "/", PageController, :index
   end
-
-  scope "/api", RethinkDocs do
-    pipe_through :api
-
-    resources "/posts", PostsController
-  end
   # Other scopes may use custom stacks.
   # scope "/api", RethinkDocs do
   #   pipe_through :api

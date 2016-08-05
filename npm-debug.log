@@ -1,0 +1,94 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/5.8.0/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@3.7.3
+3 info using node@v5.8.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchOtherPackageData phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+20 silly cache add args [ 'phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js',
+20 silly cache add   null ]
+21 verbose cache add spec phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+22 silly cache add parsed spec Result {
+22 silly cache add   raw: 'phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js',
+22 silly cache add   scope: null,
+22 silly cache add   name: 'phoenix',
+22 silly cache add   rawSpec: 'http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js',
+22 silly cache add   spec: 'http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js',
+22 silly cache add   type: 'remote' }
+23 silly mapToRegistry name phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry uri https://registry.npmjs.org/phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+27 verbose addRemoteTarball http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js not in flight; adding
+28 verbose addRemoteTarball [ 'http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js',
+28 verbose addRemoteTarball   null ]
+29 info retry fetch attempt 1 at 11:39:48 PM
+30 info attempt registry request try #1 at 11:39:48 PM
+31 http fetch GET http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+32 verbose request id 5e283a278e4d7e60
+33 http fetch 406 http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+34 error fetch failed http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+35 warn retry will retry, error on last attempt: Error: fetch failed with status code 406
+36 info retry fetch attempt 2 at 11:39:58 PM
+37 info attempt registry request try #1 at 11:39:58 PM
+38 http fetch GET http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+39 http fetch 406 http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+40 error fetch failed http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+41 warn retry will retry, error on last attempt: Error: fetch failed with status code 406
+42 info retry fetch attempt 3 at 11:40:59 PM
+43 info attempt registry request try #1 at 11:40:59 PM
+44 http fetch GET http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+45 http fetch 406 http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+46 error fetch failed http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js
+47 silly fetchPackageMetaData Error: fetch failed with status code 406
+47 silly fetchPackageMetaData     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/fetch.js:51:14)
+47 silly fetchPackageMetaData     at emitOne (events.js:90:13)
+47 silly fetchPackageMetaData     at Request.emit (events.js:182:7)
+47 silly fetchPackageMetaData     at Request.onRequestResponse (/usr/local/lib/node_modules/npm/node_modules/request/request.js:952:10)
+47 silly fetchPackageMetaData     at emitOne (events.js:90:13)
+47 silly fetchPackageMetaData     at ClientRequest.emit (events.js:182:7)
+47 silly fetchPackageMetaData     at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:458:21)
+47 silly fetchPackageMetaData     at HTTPParser.parserOnHeadersComplete (_http_common.js:103:23)
+47 silly fetchPackageMetaData     at TLSSocket.socketOnData (_http_client.js:348:20)
+47 silly fetchPackageMetaData     at emitOne (events.js:90:13)
+47 silly fetchPackageMetaData  error for phoenix@http://github.com/phoenixframework/phoenix/blob/master/priv/static/phoenix.js [Error: fetch failed with status code 406]
+48 silly rollbackFailedOptional Starting
+49 silly rollbackFailedOptional Finishing
+50 silly runTopLevelLifecycles Starting
+51 silly runTopLevelLifecycles Finishing
+52 silly install printInstalled
+53 verbose stack Error: fetch failed with status code 406
+53 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/fetch.js:51:14)
+53 verbose stack     at emitOne (events.js:90:13)
+53 verbose stack     at Request.emit (events.js:182:7)
+53 verbose stack     at Request.onRequestResponse (/usr/local/lib/node_modules/npm/node_modules/request/request.js:952:10)
+53 verbose stack     at emitOne (events.js:90:13)
+53 verbose stack     at ClientRequest.emit (events.js:182:7)
+53 verbose stack     at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:458:21)
+53 verbose stack     at HTTPParser.parserOnHeadersComplete (_http_common.js:103:23)
+53 verbose stack     at TLSSocket.socketOnData (_http_client.js:348:20)
+53 verbose stack     at emitOne (events.js:90:13)
+54 verbose cwd /Users/osayame/Dropbox/osayame/Work/experiments/Web/Elixir/rethink_docs
+55 error Darwin 15.4.0
+56 error argv "/usr/local/Cellar/node/5.8.0/bin/node" "/usr/local/bin/npm" "install"
+57 error node v5.8.0
+58 error npm  v3.7.3
+59 error fetch failed with status code 406
+60 error If you need help, you may report this error at:
+60 error     <https://github.com/npm/npm/issues>
+61 verbose exit [ 1, true ]
